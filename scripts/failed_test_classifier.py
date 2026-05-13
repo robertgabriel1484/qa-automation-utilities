@@ -5,24 +5,25 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from collections import Counter
 from pathlib import Path
 
 
 CLASSIFICATION_RULES = {
-    "locator": ["no such element", "locator", "selector", "element not found"],
-    "timeout": ["timeout", "timed out", "waiting"],
-    "assertion": ["expected", "actual", "assert", "mismatch"],
-    "environment": ["connection refused", "server error", "503", "500", "unavailable"],
-    "data": ["missing data", "duplicate", "invalid data", "null value"],
+    "locator": [r"\bno such element\b", r"\blocator\b", r"\bselector\b", r"\belement not found\b"],
+    "timeout": [r"\btimeout\b", r"\btimed out\b", r"\bwaiting\b"],
+    "assertion": [r"\bexpected\b", r"\bactual\b", r"\bassert\b", r"\bmismatch\b"],
+    "environment": [r"\bconnection refused\b", r"\bserver error\b", r"\b503\b", r"\b500\b", r"\bunavailable\b"],
+    "data": [r"\bmissing data\b", r"\bduplicate\b", r"\binvalid data\b", r"\bnull value\b"],
 }
 
 
 def classify_message(message: str) -> str:
     lower_message = message.lower()
 
-    for category, keywords in CLASSIFICATION_RULES.items():
-        if any(keyword in lower_message for keyword in keywords):
+    for category, patterns in CLASSIFICATION_RULES.items():
+        if any(re.search(pattern, lower_message) for pattern in patterns):
             return category
 
     return "unclassified"
