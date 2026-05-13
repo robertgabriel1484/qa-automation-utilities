@@ -1,0 +1,36 @@
+name: Python QA Utility Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  python-utilities-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run unit tests
+        run: python -m unittest discover tests
+
+      - name: Run sample log parser
+        run: python scripts/log_parser.py sample_data/sample_app.log
+
+      - name: Run sample test report summarizer
+        run: python scripts/test_report_summarizer.py sample_data/sample_test_results.json
+
+      - name: Run sample CSV validator
+        run: python scripts/csv_data_validator.py sample_data/sample_invoices.csv
+
+      - name: Run sample failed test classifier
+        run: python scripts/failed_test_classifier.py sample_data/sample_test_results.json
