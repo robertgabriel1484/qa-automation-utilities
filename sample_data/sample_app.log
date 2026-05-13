@@ -1,0 +1,6 @@
+2026-01-10 09:00:01 INFO Application started
+2026-01-10 09:00:04 INFO User opened login page
+2026-01-10 09:00:07 WARN Slow response from authentication service
+2026-01-10 09:00:10 ERROR Login failed for user test@example.com: timeout waiting for token
+2026-01-10 09:00:12 INFO Retrying authentication request
+2026-01-10 09:00:15 ERROR Payment workflow failed: missing invoice_id

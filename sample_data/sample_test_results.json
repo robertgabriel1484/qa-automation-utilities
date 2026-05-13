@@ -1,0 +1,27 @@
+{
+  "suite": "portfolio-regression-suite",
+  "tests": [
+    {
+      "name": "valid user can log in",
+      "status": "passed",
+      "message": ""
+    },
+    {
+      "name": "invalid password shows error",
+      "status": "failed",
+      "failure_category": "assertion",
+      "message": "Expected error text to contain 'invalid password' but actual text was blank"
+    },
+    {
+      "name": "payment workflow displays invoice",
+      "status": "failed",
+      "failure_category": "data",
+      "message": "Missing data: invoice_id was null in response"
+    },
+    {
+      "name": "user can log out",
+      "status": "skipped",
+      "message": "Skipped after setup failure"
+    }
+  ]
+}
